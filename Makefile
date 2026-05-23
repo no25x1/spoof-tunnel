@@ -43,7 +43,13 @@ dev-backend:
 	cd panel/backend && CGO_ENABLED=0 go build -o ../../spoof-panel ./cmd/panel/
 
 # ── Test ──
+# Note: use 'make test-quick' to skip the slow xdp-ebpf nightly build during iteration
 test: rust xdp-ebpf
+	cd rust && cargo test
+	CGO_ENABLED=1 go test -v ./internal/...
+	cd panel/backend && go vet ./...
+
+test-quick: rust
 	cd rust && cargo test
 	CGO_ENABLED=1 go test -v ./internal/...
 	cd panel/backend && go vet ./...
