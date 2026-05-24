@@ -66,3 +66,11 @@ clean:
 	rm -f spoof spoof-panel
 	rm -rf panel/frontend/.next panel/frontend/out
 	rm -rf panel/backend/cmd/panel/web
+
+# ── Help ──
+# Prints a quick reminder of the most useful targets.
+help:
+	@echo "Targets: all, core, panel, test, test-quick, clean"
+	@echo "  all        - build core binary + panel (frontend + backend)"
+	@echo "  test-quick - fast iteration: Rust tests + Go tests (skips nightly eBPF build)"
+	@echo "  clean      - remove all build artifacts"
