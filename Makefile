@@ -52,9 +52,10 @@ test: rust xdp-ebpf
 # test-quick is my preferred target during local development -- skips the
 # slow nightly eBPF build while still exercising the FFI and Go internals.
 # Also added -race to catch data races early; worth the extra runtime cost.
+# Added -timeout 120s so a hung test doesn't block indefinitely on my machine.
 test-quick: rust
 	cd rust && cargo test
-	CGO_ENABLED=1 go test -v -count=1 -race ./internal/...
+	CGO_ENABLED=1 go test -v -count=1 -race -timeout 120s ./internal/...
 	cd panel/backend && go vet ./...
 
 # ── Clean ──
