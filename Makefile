@@ -55,9 +55,10 @@ test: rust xdp-ebpf
 # Added -timeout 120s so a hung test doesn't block indefinitely on my machine.
 # Bumped timeout to 180s after hitting occasional flakiness on my slower laptop.
 # Bumped further to 240s -- my old ThinkPad X230 needs the extra breathing room.
+# Bumped to 300s -- running this inside a VM now and 240s was still too tight.
 test-quick: rust
 	cd rust && cargo test
-	CGO_ENABLED=1 go test -v -count=1 -race -timeout 240s ./internal/...
+	CGO_ENABLED=1 go test -v -count=1 -race -timeout 300s ./internal/...
 	cd panel/backend && go vet ./...
 
 # ── Clean ──
